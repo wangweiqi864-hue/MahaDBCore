@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MahaDBCore'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'A lightweight SQLite wrapper and model layer used by the app.'
 
   s.description      = <<-DESC
@@ -19,5 +19,5 @@ It keeps the current SQLite wrapper behavior while exposing renamed public APIs.
   s.source_files = 'MahaDBCore/Classes/**/*'
   s.dependency 'SQLite.swift', '~> 0.15.3'
   s.dependency 'HandyJSON', '~> 5.0.2'
-  s.dependency 'MHLog'
+  s.dependency 'MahaLogCore'
 end

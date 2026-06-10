@@ -13,7 +13,7 @@
 
 - Keeps the current SQLite table creation and auto-column migration behavior
 - Exposes renamed public database manager and model base types
-- Depends on `SQLite.swift`, `HandyJSON`, and `MHLog`
+- Depends on `SQLite.swift`, `HandyJSON`, and `MahaLogCore`
 
 ## Installation
 

@@ -7,7 +7,7 @@
 
 import Foundation
 import SQLite.Swift
-import MHLog
+import MahaLogCore
 
 public class MahaDBManager {
     
@@ -19,7 +19,7 @@ public class MahaDBManager {
         do {
             dbConnection = try Connection(dbPath)
         } catch {
-            // MHLog.log("sql--Error connecting to database: \(error)")
+            // MahaLog.record("sql--Error connecting to database: \(error)")
             dbConnection = nil
             
         }
@@ -86,7 +86,7 @@ public class MahaDBManager {
             return data == nil
         }
         
-//        MHLog.info("sql==newColumns====\(newColumns)")
+//        MahaLog.recordInfo("sql==newColumns====\(newColumns)")
         if newColumns.isEmpty == false { // 存在新增的列 需要自动更新数据库
             let cTable = Table(cTableName)
             // 执行 ALTER TABLE 语句
@@ -113,10 +113,10 @@ public class MahaDBManager {
                 if row.count >= 2 ,let cName = row[1] as? String{ // 第一列是列名
                     tableOldColumns[cName] = Void()
                 }
-//                MHLog.info("row=\(row)")
+//                MahaLog.recordInfo("row=\(row)")
             }
         }
-//        MHLog.info("row==111==\(tableOldColumns)")
+//        MahaLog.recordInfo("row==111==\(tableOldColumns)")
         return tableOldColumns
     }
     
@@ -125,12 +125,12 @@ public class MahaDBManager {
     public func executeQuery(query: String) -> Statement? {
         guard let db = dbConnection else { return nil }
         do {
-//            MHLog.info("sql=\(query)")
+//            MahaLog.recordInfo("sql=\(query)")
             let statement = try db.prepare(query)
-            // MHLog.log("sql--ok=\(query)")
+            // MahaLog.record("sql--ok=\(query)")
             return statement
         } catch {
-            // MHLog.log("sql--err=\(error)--sql=\(query)")
+            // MahaLog.record("sql--err=\(error)--sql=\(query)")
         }
         return nil
     }
@@ -141,7 +141,7 @@ public class MahaDBManager {
 //            try dbConnection?.run(query)
 //            completion(true, nil)
 //        } catch {
-//            MHLog.info("Error executing update: \(error)")
+//            MahaLog.recordInfo("Error executing update: \(error)")
 //            completion(false, error)
 //        }
 //    }
@@ -153,9 +153,9 @@ public class MahaDBManager {
         do {
             
             try db.execute(sql)
-            // MHLog.log("sql--ok=\(sql)")
+            // MahaLog.record("sql--ok=\(sql)")
         } catch {
-            // MHLog.log("sql--err=\(error)--sql=\(sql)")
+            // MahaLog.record("sql--err=\(error)--sql=\(sql)")
             return false
         }
         return true
@@ -189,11 +189,11 @@ extension MahaDBManager {
                     addColumn(t: t, column: column)
                 }
             }
-            // MHLog.log("sql==\(query)")
+            // MahaLog.record("sql==\(query)")
             try db.run(query)
-            // MHLog.log("sql==Table '\(cTableName)' created successfully")
+            // MahaLog.record("sql==Table '\(cTableName)' created successfully")
         } catch {
-            // MHLog.log("sql==Table '\(cTableName)'--Error creating table: \(error)")
+            // MahaLog.record("sql==Table '\(cTableName)'--Error creating table: \(error)")
             return false
         }
         if isUpdateTable {

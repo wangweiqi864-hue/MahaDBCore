@@ -67,7 +67,7 @@ extension MahaDBModel{
         sql += "values ("
         for colum in colums {
             let value = valueFrom(colum.name) ?? ""
-//            MHLog.info("name=\(colum.name)--value=\(value)")
+//            MahaLog.recordInfo("name=\(colum.name)--value=\(value)")
             sql += "'\(value)',"
         }
         // 去掉最后的,
